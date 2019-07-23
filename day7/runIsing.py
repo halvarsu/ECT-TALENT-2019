@@ -12,12 +12,15 @@ for L in [16,32,48,64]:
     phi = np.random.uniform(0,1,size=N)
 
     for beta_inv in np.linspace(4, 1.4, 51):
+        print(f"L={L}, beta_inv={beta_inv:.3f}")
         ising.set_beta(1/beta_inv)
 
         # initialize with previous phi
         ising.initialize(phi)
         # just save everything
-        ensemble = ising.run(Ncf=Ncf, Ncorr=1, Ntherm=1, eps=0.15)
+        ensemble = ising.run(
+                Ncf=Ncf, Ncorr=1, Ntherm=1, eps=0.15,
+                verbose=False)
         phi = ensemble[-1]
 
         fname = 'cfgs/L{}_binv{:.4f}.npy'.format(L, beta_inv)
