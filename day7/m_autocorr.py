@@ -1,5 +1,12 @@
+import numpy as np
+from isingHMC import IsingHMC
+
 J = 1
 h = 0
+
+def acf(x, length=100):
+    return np.array([1]+[np.corrcoef(x[:-i], x[i:])[0,1]  \
+        for i in range(1, length)])
 
 betainv_values = np.linspace(4, 1.4, 51)
 for L in [16,32,48,64]:
@@ -18,8 +25,8 @@ for L in [16,32,48,64]:
                 # print(m[::nskip].size)
                 ac = acf(m[::nskip])
 
-                print('L{}_binv{:.4f}, correlation length: {}'.format(
-                    L,betainv, times[::nskip][np.where(ac < 1/np.exp(1))[0][0]])
+                print('{}, correlation length: {}'.format(
+                    filename, times[::nskip][np.where(ac < 1/np.exp(1))[0][0]])
                      )
                 done = True
 
