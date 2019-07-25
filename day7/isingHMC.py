@@ -114,7 +114,7 @@ class IsingHMC():
         # this is not valid if not h_i == h_j for all i,j
         h = self.h[0]
         return (1/self.sqrtbetaJ*1/self.N*np.sum(phi, axis=-1)              
-                - h/self.J*1/N*np.sum(self.Ktildeinv))
+                - h/self.J*1/self.N*np.sum(self.Ktildeinv))
     
     def betaEps(self, phi):
         # this is not valid if not h_i == h_j for all i,j
